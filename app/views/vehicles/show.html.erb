@@ -4,3 +4,11 @@
 <p><%= "You selected the #{@vehicle[:name]}, model #{@vehicle[:model]}." %><br>
 <%= "It costs #{@vehicle[:cost]} credits." %><br>
 <%= "It was manufactured by #{@vehicle[:manufacturer]}." %></p>
+
+<form action="<%= purchase_path %>" method="post">
+  <input type="hidden" name="vehicles" value="<%= ActiveSupport::JSON.encode @vehicles %>">
+  <input type="hidden" name="purchase[name]" value="<%= @vehicle[:name] %>">
+  <!-- Auth Token necessary for post requests. -->
+  <input type="hidden" name="authenticity_token"  value="<%= form_authenticity_token %>">
+  <input type="submit" value="Buy it">
+</form> 
