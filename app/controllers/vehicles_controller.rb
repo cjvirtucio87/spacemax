@@ -15,16 +15,31 @@ class VehiclesController < ApplicationController
       end
 
       def all_vehicles
-        vehicles = []
+        # vehicles = []
+        # curr = get(VEHICLES_URI)
+        # until curr['next'].nil?
+        #   curr['results'].each do |result|
+        #     vehicles.push result['name']
+        #   end
+        #   curr = get(curr['next'])
+        # end
+        # vehicles
+        vehicles = {}
         curr = get(VEHICLES_URI)
         until curr['next'].nil?
-          vehicles << curr['results'].map do |result|
-            [result['name'],result['model'],result['manufacturer']]
+          curr['results'].each do |result|
+            vehicles[result['name']] = { 'model' => result['model'],
+                                         'manufacturer' => result['manufacturer'],
+                                         'cost' => result['cost_in_credits'] }
           end
           curr = get(curr['next'])
         end
         vehicles
       end
+
+      # def get_vehicle_details(vehicle)
+
+      # end
 
     end
 
@@ -40,6 +55,13 @@ class VehiclesController < ApplicationController
   end
 
   def show
+    name = params[:vehicle]
+    @vehicles = ActiveSupport::JSON.decode params[:vehicles]
+    @vehicle = { name: name,
+                 model: @vehicles[name]['model'],
+                 manufacturer: @vehicles[name]['manufacturer'],
+                 cost: @vehicles[name]['cost'] }
+    render :show
   end
 
   private

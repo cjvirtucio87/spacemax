@@ -2,4 +2,9 @@
 
 <!-- Get all vehicles. -->
 
-<%= select_tag @vehicles %>
+<h1>Car Name</h1>
+<form action="<%= vehicle_path %>" method="get">
+  <%= select_tag "vehicle", options_for_select(@vehicles, 'name') %>
+  <input type="hidden" name="vehicles" value="<%= ActiveSupport::JSON.encode @vehicles %>">
+  <input type="submit" value="Submit">
+</form>

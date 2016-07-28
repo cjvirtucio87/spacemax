@@ -1,2 +1,6 @@
+<input type="hidden" name="vehicles" value="<%= ActiveSupport::JSON.encode @vehicles %>">
+
 <h1>Vehicles#show</h1>
-<p>Find me in app/views/vehicles/show.html.erb</p>
+<p><%= "You selected the #{@vehicle[:name]}, model #{@vehicle[:model]}." %><br>
+<%= "It costs #{@vehicle[:cost]} credits." %><br>
+<%= "It was manufactured by #{@vehicle[:manufacturer]}." %></p>
