@@ -10,7 +10,9 @@
 
   <body>
     <%= render 'shared/navbar' %>
-    
+    <% flash.each do |k,v| %>
+      <%= v %>
+    <% end %>
     <%= yield %>
   </body>
 </html>

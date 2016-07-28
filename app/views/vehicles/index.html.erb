@@ -2,9 +2,18 @@
 
 <!-- Get all vehicles. -->
 
-<h1>Vehicle Name</h1>
+<h1>See Vehicle</h1>
 <form action="<%= vehicle_path %>" method="get">
   <%= select_tag "vehicle", options_for_select(@vehicles, 'name') %>
   <input type="hidden" name="vehicles" value="<%= ActiveSupport::JSON.encode @vehicles %>">
   <input type="submit" value="Submit">
+</form>
+
+<h1>Purchase Vehicle</h1>
+<form action="<%= purchase_path %>" method="post">
+  <%= select_tag "purchase[name]", options_for_select(@vehicles, 'name') %>
+  <input type="hidden" name="vehicles" value="<%= ActiveSupport::JSON.encode @vehicles %>">
+  <input type="submit" value="Submit">
+  <!-- Auth Token necessary for post requests. -->
+  <input type="hidden" name="authenticity_token"  value="<%= form_authenticity_token %>">
 </form>

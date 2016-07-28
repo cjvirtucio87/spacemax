@@ -31,7 +31,12 @@ class VehiclesController < ApplicationController
   end
 
   def index
-    @vehicles = SwapiInterface.all_vehicles
+    if params[:vehicles]
+      @vehicles = ActiveSupport::JSON.decode(params[:vehicles])
+    else
+      @vehicles = SwapiInterface.all_vehicles
+    end
+    session['credits'] ||= 1000000
   end
 
   def show

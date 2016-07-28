@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  post 'purchase' => 'purchases#create'
+
   root 'vehicles#index'
 
   get 'vehicles' => 'vehicles#index'
