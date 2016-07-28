@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'vehicles#index'
+
   get 'vehicles' => 'vehicles#index'
 
   get 'vehicle' => 'vehicles#show'
