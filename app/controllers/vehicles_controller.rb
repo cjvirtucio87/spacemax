@@ -1,9 +1,7 @@
 class VehiclesController < ApplicationController
 
   class SwapiInterface
-    # HTTParty gets included in the class, which means
-    # that its singleton class is extended. Therefore,
-    # you can just call methods directly in the singleton class.
+    #Equivalent to class.extend(HTTParty)
     include HTTParty
     
     class << self
@@ -15,15 +13,6 @@ class VehiclesController < ApplicationController
       end
 
       def all_vehicles
-        # vehicles = []
-        # curr = get(VEHICLES_URI)
-        # until curr['next'].nil?
-        #   curr['results'].each do |result|
-        #     vehicles.push result['name']
-        #   end
-        #   curr = get(curr['next'])
-        # end
-        # vehicles
         vehicles = {}
         curr = get(VEHICLES_URI)
         until curr['next'].nil?
@@ -37,18 +26,9 @@ class VehiclesController < ApplicationController
         vehicles
       end
 
-      # def get_vehicle_details(vehicle)
-
-      # end
-
     end
 
   end
-
-# until curr['next'].nil?
-#   @vehicles << curr['results'].map { |result| [result['name'],result['model']] }
-#   curr = SwapiInterface.get_vehicles(curr['next'])
-# end
 
   def index
     @vehicles = SwapiInterface.all_vehicles
