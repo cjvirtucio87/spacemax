@@ -36,7 +36,7 @@ class VehiclesController < ApplicationController
     else
       @vehicles = SwapiInterface.all_vehicles
     end
-    session['credits'] ||= 1000000
+    @credits = session['credits'] ||= 1000000
   end
 
   def show

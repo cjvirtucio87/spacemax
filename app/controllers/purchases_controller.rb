@@ -6,16 +6,24 @@ class PurchasesController < ApplicationController
     model = @vehicles[name]['model']
     manufacturer = @vehicles[name]['manufacturer']
     cost = @vehicles[name]['cost']
-    @purchase = Purchase.new(name: name,
-                             model: model,
-                             manufacturer: manufacturer,
-                             cost: cost)
-    if @purchase.save
-      flash[:success] = "Purchase successful."
+    if session['credits'] < cost.to_i
+      flash[:danger] = "Insufficient credits."
+      redirect_to vehicles_path
     else
-      flash[:danger] = "Error in purchase!"
+      @purchase = Purchase.new(name: name,
+                               model: model,
+                               manufacturer: manufacturer,
+                               cost: cost)
+      if @purchase.save
+        flash.now[:success] = "Purchase successful."
+        session['credits'] -= cost.to_i
+        @credits = session['credits']
+        @price = cost.to_i
+      else
+        flash.now[:danger] = "Error in purchase!"
+      end
+      render 'vehicles/index'
     end
-    redirect_to vehicles_path
   end
 
   private

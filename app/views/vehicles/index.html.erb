@@ -2,6 +2,11 @@
 
 <!-- Get all vehicles. -->
 
+<h3>You have <%= @credits %> credits left.</h3>
+<% if @purchase %>
+  <%= content_tag(:h3, "Your last purchase costs #{@purchase.cost} credits") %>
+<% end %>
+
 <h1>See Vehicle</h1>
 <form action="<%= vehicle_path %>" method="get">
   <%= select_tag "vehicle", options_for_select(@vehicles, 'name') %>
