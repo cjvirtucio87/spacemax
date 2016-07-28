@@ -50,7 +50,6 @@ class VehiclesController < ApplicationController
   end
 
   private
-
     def option_param
       params.require(:vehicles).permit(:option)
     end
